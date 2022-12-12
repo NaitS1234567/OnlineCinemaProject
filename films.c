@@ -1,12 +1,16 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-struct films {
+struct film {
     char* name;
     int year;
     char* country;
     char* genre;
     float reit;
+};
+
+struct all_films{
+    struct films;
 };
 
 struct user {
@@ -17,8 +21,7 @@ struct user {
 };
 
 
-
-struct films list_films(FILE* infile){
+struct film list_films(FILE* infile){
 
 }
 
