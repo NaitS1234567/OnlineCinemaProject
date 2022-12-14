@@ -33,7 +33,8 @@ void ERROR(char * s){
     printf("ERROR - check %s", s);
 }
 
-void sign_up(FILE* users){
+void
+sign_up(FILE* users){
     char ** mas = (char**)malloc(sizeof(char*)*3);
     for (int i = 0; i < 3; i++){
         mas[i] = (char*)malloc(sizeof(char)*20);
@@ -42,39 +43,45 @@ void sign_up(FILE* users){
     int len_favourites = 0;
     int is_admin = 0;
     int len;
-    char s[20];
-    while (1) {
 
+    while (1) {
+        char s[20];
         printf("Print your name (len 3-20) ");
         scanf("%s", &s);
         len = strlen(s);
-        if (len < 3 || len > 20){
-            ERROR("name");
-            break;
+        if (len < 3 || len > 20) {
+            ERROR("name\n");
+            continue;
         }
         mas[0] = s;
-
+        break;
+    }
+    while (1){
         char s1[20];
         printf("Create your password (len 6-20) ");
         scanf("%s", &s1);
         len = strlen(s1);
         if (len < 6 || len > 20){
-            ERROR("password");
-            break;
+            ERROR("password\n");
+            continue;
         }
         mas[1] = s1;
+        break;
+    }
 
+    while (1){
         char s2[20];
         printf("MONEY PISHI EPT (len 16) ");
         scanf("%s", &s2);
         len = strlen(s2);
         if (len != 5){
-            ERROR("card nums");
-            break;
+            ERROR("card nums\n");
+            continue;
         }
         mas[2] = s2;
         break;
     }
+
 
     for (int i = 0; i < 3; i++){
         printf("%s \n", mas[i]);
