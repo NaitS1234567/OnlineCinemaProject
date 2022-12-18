@@ -10,16 +10,28 @@ struct film {
     char* genre;
     float reit;
 };
+
+struct node{
+    struct film;
+    struct node* next;
+    struct node* prev;
+};
+
+
 struct all_films{
     struct film;
+    int len;
+    struct node* head;
+    struct node* tail;
 };
 struct film list_films(FILE* infile){
 
 }
+
 struct user {
-    char name;
-    char password;
-    char card_num;
+    char * name;
+    char * password;
+    char * card_num;
     int len_favourites;
     struct films * favourites;
     int is_admin;
@@ -32,18 +44,18 @@ void ERROR(char * s){
 int check_exist_user( char * user_name) {
     FILE* file = fopen("users.txt", "a+");
     int len_exist = strlen(user_name);
-    //printf("%s\n", user_name);
+
     char *s[30];
     int k = 0;
     while (!feof(file)) {
-        //printf("k = %d - ", k);
+
         if (k%5 == 0){
             int flag = 0;
             fscanf(file,"%s",&s);
-            //printf("* %s\n ",s);
+
             int l = strlen(s);
             if (l == len_exist){
-                //printf("==%s",s);
+
                 if(strcmp(s,user_name) == 0){
                     k = 0;
                     return 1;
@@ -96,7 +108,7 @@ void sign_up(FILE* users){
 
     while (1){ // card nums scanf
         char s2[20];
-        printf("MONEY PISHI EPT (len 16) "); // MAKE check string in card nums !!!!!!!!!!!!!!!!!!!
+        printf("Card nums (len 5) "); // MAKE check string in card nums !!!!!!!!!!!!!!!!!!!
         scanf("%s", &s2);
         len = strlen(s2);
         if (len != 5){
@@ -129,12 +141,71 @@ void sign_up(FILE* users){
     printf("Registration was successful!\n\n");
 }
 
-void authorization(){
+
+void log_in(FILE* file){
+
+    printf("print username - ");
+    int fix = 0;
+    char * username[20];
+    while (fix != 1){
+        scanf("%s", &username);
+        fix = check_exist_user(username);
+        if (fix != 1){
+            printf("\nUSER NOT FOUND, RETRY - ");
+        }
+    }
+
+    FILE * fix_file = fopen("users.txt", "r");
+    char * fix_password[20];
+    int k = 0;
+    char * s[20];
+    int flag = 0;
+    while (!feof(file)) {
+        if (k%5 == 0){
+            fscanf(fix_file, "%s", &s);
+            int l1 = strlen(s);
+            int l2 = strlen(username);
+            if (l1 == l2){
+                if (strcmp(username,s) == 0){
+                    fscanf(fix_file, "%s", &fix_password);
+                    flag = 1;
+                    break;
+                }
+            }
+
+        } else {
+            fscanf(fix_file, "%s", &s);
+        }
+        if (flag == 1){
+            break;
+        }
+    }
+
+    printf("\nprint password - ");
+
+    while (1){
+        char * pass[20];
+        scanf("%s", &pass);
+        printf("%s - %s", pass, fix_password);
+
+        if (strcmp(pass, fix_password) == 1){
+            printf("\nINCORRECT PASSWORD, RETRY - ");
+        } else {
+            break;
+        }
+    }
+    printf("\nYou are in system!\n");
+}
+
+
+int main(){
 
     printf("=======================\n");
     printf("|| ENTER 1 - sign in ||\n|| ENTER 2 - sign up ||\n");
     printf("=======================\n        |print ");
+
     int key = 0;
+
     while (key != 1 || key != 2){
         int key;
         scanf("%d", &key);
@@ -149,15 +220,18 @@ void authorization(){
         } else {
             FILE* users = fopen("users.txt","a+");
             printf("\n========== Login ==========\n");
+            log_in(users);
             break;
         }
     }
+    system("cls");
+    while (1){
+        printf("main menu");
+        char x = scanf("%c", &x);
+    }
 
-}
 
-int main(){
 
-    authorization();
 
     return 0;
 }
