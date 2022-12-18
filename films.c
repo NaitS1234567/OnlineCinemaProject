@@ -29,26 +29,25 @@ void ERROR(char * s){
     printf("ERROR - check %s", s);
 }
 
-int check_exist_user(FILE* file, char * user_name) {
+int check_exist_user( char * user_name) {
+    FILE* file = fopen("users.txt", "a+");
     int len_exist = strlen(user_name);
-    printf("%s\n", user_name);
+    //printf("%s\n", user_name);
     char *s[30];
     int k = 0;
     while (!feof(file)) {
+        //printf("k = %d - ", k);
         if (k%5 == 0){
             int flag = 0;
             fscanf(file,"%s",&s);
+            //printf("* %s\n ",s);
             int l = strlen(s);
             if (l == len_exist){
-                for (int i = 0; i < l; i++){
-                    if (s[i] != user_name[i]){
-                        flag = 1;
-                        break;
-                    }
+                //printf("==%s",s);
+                if(strcmp(s,user_name) == 0){
+                    k = 0;
+                    return 1;
                 }
-            if (flag == 1){
-                return 1;
-            }
             }
         } else {
             fscanf(file,"%s", &s);
@@ -73,7 +72,8 @@ void sign_up(FILE* users){
         printf("Print your name (len 3-20) ");
         scanf("%s", &s);
         len = strlen(s);
-        int fix = check_exist_user(users, s);
+        int fix = 0;
+        fix = check_exist_user( s);
         if (len < 3 || len > 20 || fix == 1) {
             ERROR("name\n");
             continue;
@@ -117,7 +117,6 @@ void sign_up(FILE* users){
         break;
     }
 
-    fprintf(users,"%s","&&\n");
     for (int i = 0; i < 3; i++){
         printf("%s \n", mas[i]);
         fprintf(users, "%s", mas[i]);
@@ -127,10 +126,11 @@ void sign_up(FILE* users){
     fprintf(users,"%c",'\n');
     fprintf(users, "%d", is_admin);
     fprintf(users, "%c", '\n');
-    printf("Registration was successful!\n");
+    printf("Registration was successful!\n\n");
 }
 
-void authorization(FILE* users){
+void authorization(){
+
     printf("=======================\n");
     printf("|| ENTER 1 - sign in ||\n|| ENTER 2 - sign up ||\n");
     printf("=======================\n        |print ");
@@ -142,10 +142,12 @@ void authorization(FILE* users){
             printf("ERROR - write again \n");
             printf("        |print ");
         } else if (key == 2) {
+            FILE* users = fopen("users.txt","a+");
             printf("\n========== Registration ==========\n");
             sign_up(users);
             break;
         } else {
+            FILE* users = fopen("users.txt","a+");
             printf("\n========== Login ==========\n");
             break;
         }
@@ -154,8 +156,8 @@ void authorization(FILE* users){
 }
 
 int main(){
-    FILE* users = fopen("users.txt","a+");
-    authorization(users);
+
+    authorization();
 
 
     return 0;
