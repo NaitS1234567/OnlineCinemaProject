@@ -202,7 +202,7 @@ struct user log_in(FILE* file){
     FILE * user_data_file = fopen("users.txt", "r"); // return struct user
     struct all_films fav_films;
     struct user cur_user;
-    struct node *
+
 
 
     printf("\nYou are in system!\n");
