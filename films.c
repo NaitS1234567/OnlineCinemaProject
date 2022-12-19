@@ -1,6 +1,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include<conio.h>
 
 struct film {
     char* name;
@@ -76,7 +77,7 @@ void sign_up(FILE* users){
 
     while (1) { // user name scanf
         char s[20];
-        printf("Print your name (len 3-20) ");
+        printf("ENTER YOUR USERNAME (min 3 char | max 20 char) ");
         scanf("%s", &s);
         len = strlen(s);
         int fix = 0;
@@ -99,7 +100,7 @@ void sign_up(FILE* users){
     }
     while (1){ // password scanf
         char s1[20];
-        printf("Create your password (len 6-20) ");
+        printf("\nCREATE A PASSWORD (min 6 char | max 20 char) ");
         scanf("%s", &s1);
         len = strlen(s1);
         if (len < 6 || len > 20){
@@ -112,7 +113,7 @@ void sign_up(FILE* users){
 
     while (1){ // card nums scanf
         char s2[20];
-        printf("Card nums (len 5) "); // MAKE check string in card nums !!!!!!!!!!!!!!!!!!!
+        printf("\nCredit/Debit card number (len 5) "); // MAKE check string in card nums !!!!!!!!!!!!!!!!!!!
         scanf("%s", &s2);
         len = strlen(s2);
         if (len != 5){
@@ -142,19 +143,20 @@ void sign_up(FILE* users){
     fprintf(users,"%c",'\n');
     fprintf(users, "%d", is_admin);
     fprintf(users, "%c", '\n');
-    printf("Registration was successful!\n\n");
+    printf("YOU SIGNED UP SUCCESSFULLY!\n\n");
 }
 
 struct user log_in(FILE* file){
-
-    printf("print username - ");
+    printf("=========================================================================================================\n");
+    printf("                                         ENTER YOUR USERNAME: ");
     int fix = 0;
     char * username[20];
     while (fix != 1){
         scanf("%s", &username);
         fix = check_exist_user(username);
         if (fix != 1){
-            printf("\nUSER NOT FOUND, RETRY - ");
+            printf("---------------------------------------------------------------------------------------------------------\n");
+            printf("\n                                         USER NOT FOUND, RETRY: ");
         }
     }
 
@@ -184,14 +186,16 @@ struct user log_in(FILE* file){
         }
     }
 
-    printf("\nprint password - ");  // check correct password
+    printf("---------------------------------------------------------------------------------------------------------\n");
+    printf("\n                                           ENTER PASSWORD: ");  // check correct password
     while (1){
         char * pass[20];
         scanf("%s", &pass);
         printf("%s - %s", pass, fix_password);
         int flag = strcmp(pass, fix_password);
         if (flag != 0){
-            printf("\nINCORRECT PASSWORD, RETRY - ");
+            printf("---------------------------------------------------------------------------------------------------------\n");
+            printf("\n                              INVALID PASSWORD, TRY AGAIN: ");
         } else {
             break;
         }
@@ -205,14 +209,36 @@ struct user log_in(FILE* file){
 
 
 
-    printf("\nYou are in system!\n");
+    printf("\nYou are in the system!\n");
+//    REDIRECTING TO HOME PAGE IN 3...2...1
+    system("cls");
 }
 
 void authorization(){
-    printf("=======================\n");
-    printf("|| ENTER 1 - sign in ||\n|| ENTER 2 - sign up ||\n");
-    printf("=======================\n        |print ");
+    printf("===================================================================================================================\n");
+    printf("                                                                               \n"
+           "  @@@         @@@@&        @@@@#        @@@  @@     @@@   .@@     @@@   @@.    \n"
+           "  @@@      &@@.   @@@   @@@    @@@      @@@  @@@@   @@@   @@   @@.@@@    @@    \n"
+           "  @@@      @@      @@@  @@              @@@  @@ @@@ @@@  @@@      @@@    @@@   \n"
+           "  @@@      @@@     @@@  @@/     @@      @@@  @@   @@@@@  @@@      @@@    @@%   \n"
+           "  @@@@@@@@  @@@@@@@@*    @@@@@@@@       @@@  @@    #@@@   @@&     @@@   @@@    \n"
+           "                                                           @@@         @@@     \n"
 
+                  ""
+                  "\n"
+                  "\n"
+                  "\n"
+                  "                                                                                    @@.             @@#      \n"
+           "    @@@@@@@@   @@@    @@@@@@@@@   @@@@    &@@       @@#     @@@  @@@@@@@@@        #@@    @@@@@@@@    @@@     \n"
+           "   @@@         @@@  @@@      @@@  @@@@@,  &@@       @@#     @@@  @@@    @@@       @@@   ...    @@@   ,@@*    \n"
+           "     @@@@@@@   @@@  @@@   %@@@@@  @@@ @@@ &@@       @@#     @@@  @@@//%@@@#       @@(        &@@(     @@@    \n"
+           "   @@.    @@@  @@@  @@@      @@@  @@@   @@@@@       @@@     @@@  @@@              @@@     .@@@       *@@,    \n"
+           "   .@@@@@@@@(  @@@    @@@@@@@@%   @@@     @@@        @@@@@@@@@   @@@              *@@   #@@@@@@@@@   @@@     \n"
+           "                                                                                    @@/             @@*      \n"
+           "                                                                                                             \n"
+                  );
+    printf("===================================================================================================================\n");
+    printf("                                                 ENTER THE VALUE:");
     int key = 0;
 
     while (key != 1 || key != 2){
@@ -222,13 +248,39 @@ void authorization(){
             printf("ERROR - write again \n");
             printf("        |print ");
         } else if (key == 2) {
+            system("cls");
             FILE* users = fopen("users.txt","a+");
-            printf("\n========== Registration ==========\n");
+            printf("\n                                                                                                  \n"
+                   "                                                                                                    \n"
+                   "            @@@@@@     @@@                                 @@@      @@@                             \n"
+                   "          @@@    @@@.                                      @@@      @@@                             \n"
+                   "         .@@@@         @@@   @@@@@@@@@@  #@@ @@@@@@        @@@      @@@   @@@@@@@@@@   @@@.         \n"
+                   "            ,@@@@@@@   @@@  @@@.    @@@  #@@@    @@@       @@@      @@@   @@@    (@@@               \n"
+                   "         @@@      @@@  @@@  @@@.    @@@  #@@&    @@@       @@@.     @@@   @@@    #@@@               \n"
+                   "          @@@@@@@@@@   @@@   @@@@@@@@@@  #@@&    @@@        @@@@@@@@@@    @@@@@@@@@@   @@@.         \n"
+                   "                                    @@@                                   @@@                       \n"
+                   "                              @@@@@@@*                                    @@@                       \n"
+                   "                                                                                                    \n"
+                   "                                                                                                    \n");
             sign_up(users);
             break;
         } else {
+            system("cls");
             FILE* users = fopen("users.txt","a+");
-            printf("\n========== Login ==========\n");
+            printf("\n=====================================================================================================================                                                                                              \n"
+                   "=|                                                                                                   |=\n"
+                   "=|           @@@@                                              @@@@                                  |=\n"
+                   "=|           @@@@                                               **                                   |=\n"
+                   "=|           @@@@            (@@@@@@%       @@@@@& @@@&        @@@@   @@@* @@@@@(     @@@            |=\n"
+                   "=|           @@@@          @@@@*   @@@@   @@@@&   @@@@&        @@@@   @@@@@  (@@@@    @@@            |=\n"
+                   "=|           @@@@         *@@@      @@@& *@@@,     @@@&        @@@@   @@@&    *@@@                   |=\n"
+                   "=|           @@@@         ,@@@      @@@# .@@@(     @@@&        @@@@   @@@&    *@@@                   |=\n"
+                   "=|           @@@@@@@@@@@#  #@@@@*,@@@@@   #@@@@@@@@@@@&        @@@@   @@@&    *@@@    @@@            |=\n"
+                   "=|           @@@@@@@@@@@#     %@@@@&               @@@&        @@@@   @@@&    *@@@    @@@            |=\n"
+                   "=|                                        @@@@*  .@@@@                                               |=\n"
+                   "=|                                           @@@@@@/                                                 |=\n"
+                   "=|                                                                                                   |=\n"
+                   "                                                                                                    \n");
             struct user cur_user = log_in(users);
             break;
         }
@@ -252,8 +304,6 @@ void main_menu(){
 int main(){
 
     authorization();
-
-    system("cls");
 
     main_menu();
 
