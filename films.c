@@ -2,7 +2,6 @@
 # include <stdlib.h>
 # include <string.h>
 
-
 struct film {
     char* name;
     int year;
@@ -17,23 +16,17 @@ struct node{
     struct node* prev;
 };
 
-
 struct all_films{
-    struct film;
     int len;
     struct node* head;
     struct node* tail;
 };
-struct film list_films(FILE* infile){
-
-}
 
 struct user {
     char * name;
     char * password;
     char * card_num;
-    int len_favourites;
-    struct films * favourites;
+    struct all_films favourites;
     int is_admin;
 };
 
@@ -42,7 +35,7 @@ void ERROR(char * s){
 }
 
 int check_exist_user( char * user_name) {
-    FILE* file = fopen("users.txt", "a+");
+    FILE* file = fopen("users.txt", "r");
     int len_exist = strlen(user_name);
 
     char *s[30];
@@ -58,6 +51,7 @@ int check_exist_user( char * user_name) {
 
                 if(strcmp(s,user_name) == 0){
                     k = 0;
+                    fclose(file);
                     return 1;
                 }
             }
@@ -66,6 +60,7 @@ int check_exist_user( char * user_name) {
         }
         k++;
     }
+    fclose(file);
     return 0;
 }
 
@@ -85,6 +80,15 @@ void sign_up(FILE* users){
         scanf("%s", &s);
         len = strlen(s);
         int fix = 0;
+
+        for (int i = 0; i < len; i++){
+            if ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z')){
+                fix = 0;
+            } else {
+                fix = 1;
+                break;
+            }
+        }
         fix = check_exist_user( s);
         if (len < 3 || len > 20 || fix == 1) {
             ERROR("name\n");
@@ -141,8 +145,7 @@ void sign_up(FILE* users){
     printf("Registration was successful!\n\n");
 }
 
-
-void log_in(FILE* file){
+struct user log_in(FILE* file){
 
     printf("print username - ");
     int fix = 0;
@@ -162,12 +165,12 @@ void log_in(FILE* file){
     int flag = 0;
     while (!feof(file)) {
         if (k%5 == 0){
-            fscanf(fix_file, "%s", &s);
+            fscanf(file, "%s", &s);
             int l1 = strlen(s);
             int l2 = strlen(username);
             if (l1 == l2){
                 if (strcmp(username,s) == 0){
-                    fscanf(fix_file, "%s", &fix_password);
+                    fscanf(file, "%s", &fix_password);
                     flag = 1;
                     break;
                 }
@@ -181,25 +184,31 @@ void log_in(FILE* file){
         }
     }
 
-    printf("\nprint password - ");
-
+    printf("\nprint password - ");  // check correct password
     while (1){
         char * pass[20];
         scanf("%s", &pass);
         printf("%s - %s", pass, fix_password);
-
-        if (strcmp(pass, fix_password) == 1){
+        int flag = strcmp(pass, fix_password);
+        if (flag != 0){
             printf("\nINCORRECT PASSWORD, RETRY - ");
         } else {
             break;
         }
     }
+    fclose(file);
+    fclose(fix_file);
+
+    FILE * user_data_file = fopen("users.txt", "r"); // return struct user
+    struct all_films fav_films;
+    struct user cur_user;
+    struct node *
+
+
     printf("\nYou are in system!\n");
 }
 
-
-int main(){
-
+void authorization(){
     printf("=======================\n");
     printf("|| ENTER 1 - sign in ||\n|| ENTER 2 - sign up ||\n");
     printf("=======================\n        |print ");
@@ -220,18 +229,33 @@ int main(){
         } else {
             FILE* users = fopen("users.txt","a+");
             printf("\n========== Login ==========\n");
-            log_in(users);
+            struct user cur_user = log_in(users);
             break;
         }
     }
-    system("cls");
+
+}
+
+void main_menu(){
+
     while (1){
-        printf("main menu");
-        char x = scanf("%c", &x);
+        char x;
+        scanf("%c", &x);
+        printf("====================================================================================================================\n");
+        printf("=================================================== MAIN MENU ======================================================\n");
+        printf("====================================================================================================================\n");
+
     }
 
+}
 
+int main(){
 
+    authorization();
+
+    system("cls");
+
+    main_menu();
 
     return 0;
 }
