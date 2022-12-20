@@ -134,11 +134,11 @@ void sign_up(FILE* users){
         break;
     }
 
-//    for (int i = 0; i < 3; i++){
-//        printf("%s \n", mas[i]);
-//        fprintf(users, "%s", mas[i]);
-//        fprintf(users,"%c",'\n');
-//    }
+    for (int i = 0; i < 3; i++){
+        printf("%s \n", mas[i]);
+        fprintf(users, "%s", mas[i]);
+        fprintf(users,"%c",'\n');
+    }
     fprintf(users, "%d", len_favourites);
     fprintf(users,"%c",'\n');
     fprintf(users, "%d", is_admin);
@@ -184,6 +184,7 @@ struct user log_in(FILE* file){
         if (flag == 1){
             break;
         }
+
     }
 
     printf("---------------------------------------------------------------------------------------------------------\n");
@@ -212,6 +213,8 @@ struct user log_in(FILE* file){
     printf("\nYou are in the system!\n");
 //    REDIRECTING TO HOME PAGE IN 3...2...1
     system("cls");
+    printf("HELLO");
+    printf("%d",k);
 }
 
 void authorization(){
@@ -313,7 +316,7 @@ int main(){
 
     authorization();
 
-    main_menu();
+    //main_menu();
 
     return 0;
 }
